@@ -1241,8 +1241,56 @@
             },
             autoplay: true,
         });
+    <!-- Nhạc nền -->
+<audio id="bg-music" src="music.mp3" loop></audio>
 
-    </script>
+<!-- Nút bật/tắt -->
+<button id="music-toggle" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 15px;
+  opacity: 0.8;
+">
+  🔊 Bật nhạc
+</button>
+
+<script>
+  const music = document.getElementById("bg-music");
+  const btn = document.getElementById("music-toggle");
+  let playing = false;
+
+  // Tự động phát khi người dùng nhấp vào trang
+  document.body.addEventListener("click", () => {
+    if (!playing) {
+      music.play().then(() => {
+        music.volume = 0.3;
+        playing = true;
+        btn.textContent = "🔈 Tắt nhạc";
+      }).catch(() => {});
+    }
+  }, { once: true });
+
+  // Bật/tắt nhạc khi bấm nút
+  btn.addEventListener("click", () => {
+    if (playing) {
+      music.pause();
+      btn.textContent = "🔊 Bật nhạc";
+    } else {
+      music.play();
+      btn.textContent = "🔈 Tắt nhạc";
+    }
+    playing = !playing;
+  });
+</script>
+
 </body>
+
 
 </html>
